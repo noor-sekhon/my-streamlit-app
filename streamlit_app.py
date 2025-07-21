@@ -87,4 +87,16 @@ if uploaded_file:
         st.subheader("📋 Budget Recommendations")
         st.dataframe(df[display_cols].sort_values('Budget Action', ascending=False).reset_index(drop=True), use_container_width=True)
 
-        st.download_button(_
+        st.download_button(
+            label="📩 Download Recommendations CSV",
+            data=df[display_cols].to_csv(index=False),
+            file_name="campaign_budget_recommendations.csv",
+            mime="text/csv"
+        )
+
+    except Exception as e:
+        st.error(f"❌ Error processing file: {e}")
+
+else:
+    st.info("📁 Please upload a campaign performance CSV file to get started.")
+
