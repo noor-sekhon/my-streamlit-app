@@ -58,31 +58,32 @@ if uploaded_file:
             clicks = row.get('Clicks', 0) or 0
             budget = row['Budget']
 
-       expected_conversions = round(clicks * (row['Conv. rate'] / 100), 2)
+            # ✅ Use actual campaign conversion rate
+            expected_conversions = round(clicks * (row['Conv. rate'] / 100), 2)
 
             if conv < avg_conversions and cpa > avg_cpa and ctr < avg_ctr:
-                action = "🟥 Decrease Budget"
+                action = "🔻 Decrease Budget"
                 reason = "Underperforming on all key metrics"
                 new_budget = round(budget * 0.8, 2)
             elif abs(conv - avg_conversions) / avg_conversions <= 0.05:
                 if cpa > avg_cpa and ctr < avg_ctr:
-                    action = "🟥 Decrease Budget"
+                    action = "🔻 Decrease Budget"
                     reason = "Avg conversions, high cost, low CTR"
                     new_budget = round(budget * 0.8, 2)
                 elif cpa > avg_cpa and ctr > avg_ctr:
-                    action = "🟨 Slight Increase"
+                    action = "🔺 Slight Increase"
                     reason = "Avg conversions, good CTR may drive gains"
                     new_budget = round(budget * 1.1, 2)
                 else:
-                    action = "🟥 Decrease Budget"
+                    action = "🔻 Decrease Budget"
                     reason = "Near-average performance with inefficiencies"
                     new_budget = round(budget * 0.8, 2)
             elif conv > avg_conversions and cpa < avg_cpa and ctr > avg_ctr:
-                action = "🟩 Increase Budget"
+                action = "🔺 Increase Budget"
                 reason = "High conversions, low cost, high CTR"
                 new_budget = round(budget * 1.2, 2)
             else:
-                action = "🟥 Decrease Budget"
+                action = "🔻 Decrease Budget"
                 reason = "Performance not clearly above average"
                 new_budget = round(budget * 0.8, 2)
 
@@ -117,3 +118,4 @@ if uploaded_file:
 
 else:
     st.info("📁 Please upload a campaign performance CSV file to get started.")
+
