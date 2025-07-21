@@ -58,7 +58,7 @@ if uploaded_file:
             clicks = row.get('Clicks', 0) or 0
             budget = row['Budget']
 
-            expected_conversions = round(clicks * avg_conv_rate, 2)
+       expected_conversions = round(clicks * (row['Conv. rate'] / 100), 2)
 
             if conv < avg_conversions and cpa > avg_cpa and ctr < avg_ctr:
                 action = "🟥 Decrease Budget"
