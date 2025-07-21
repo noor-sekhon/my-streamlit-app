@@ -61,7 +61,7 @@ if uploaded_file:
             expected_conversions = round(clicks * avg_conv_rate, 2)
 
             if conv < avg_conversions and cpa > avg_cpa and ctr < avg_ctr:
-                action = "🔻 Decrease Budget"
+                action = "🟥 Decrease Budget"
                 reason = "Underperforming on all key metrics"
                 new_budget = round(budget * 0.8, 2)
             elif abs(conv - avg_conversions) / avg_conversions <= 0.05:
